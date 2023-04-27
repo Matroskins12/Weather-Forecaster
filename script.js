@@ -12,6 +12,7 @@ function all(input_value) {
   let usl_1 = (input_value)? input_value : 'Tiraspol' 
     let city = 'Tiraspol'
 
+
 // let refer = 'https://api.openweathermap.org/data/3.0/onecall?Tiraspol&appid=eab7c6660f088e8cb4a1a2b8a69d39f3'
 let refer_2 = `https://api.openweathermap.org/data/2.5/weather?q=${usl_1}&appid=eab7c6660f088e8cb4a1a2b8a69d39f3`
 let myRequest = new XMLHttpRequest();
@@ -32,7 +33,43 @@ myRequest.onload = function () {
     let humidity = myRequest.response.main.humidity
     
     let wind_speed = myRequest.response.wind.speed
-    let wind_direction = myRequest.response.wind.deg
+    let wind_direction = myRequest.response.wind.deg 
+
+    if ((wind_direction < 22 && wind_direction >= 0) || wind_direction == 360) {
+        wind_direction = 'N'
+    } else if (wind_direction < 45 && wind_direction >=23 ) {
+        wind_direction = 'NNE'
+    } else if (wind_direction < 67 && wind_direction >= 45) {
+        wind_direction = 'NE'
+    } else if (wind_direction < 90 && wind_direction >=67) {
+        wind_direction = 'ENE'
+    } else if (wind_direction < 112 && wind_direction >=90) {
+        wind_direction = 'E'
+    } else if (wind_direction < 135 && wind_direction >= 112) {
+        wind_direction = 'ESE'
+    } else if (wind_direction < 157 && wind_direction >= 135) {
+        wind_direction = 'SE'
+    } else if (wind_direction < 180 && wind_direction >= 157) {
+        wind_direction = 'SSE'
+    } else if (wind_direction < 202 && wind_direction >= 180) {
+        wind_direction = 'S'
+    } else if (wind_direction < 225 && wind_direction >=202) {
+        wind_direction = 'SSW'
+    } else if (wind_direction < 247 && wind_direction >= 225) {
+        wind_direction = 'SW'
+    } else if (wind_direction < 270 && wind_direction >= 247) {
+        wind_direction = 'WSW'
+    } else if (wind_direction < 292 && wind_direction >= 270) {
+        wind_direction = 'W'
+    } else if (wind_direction < 315 && wind_direction >= 292) {
+        wind_direction = 'WNW'
+    } else if (wind_direction < 337 && wind_direction >= 315) {
+        wind_direction = 'NW'
+    } else if (wind_direction < 360 && wind_direction >= 337) {
+        wind_direction = 'NNW'
+    } else if (wind_direction > 360) {
+        wind_direction = 'error'
+    }
 
     let result = `
     <div class='weather_div'>
@@ -55,7 +92,7 @@ myRequest.onload = function () {
         </div>
         <div class='wind_weather'>
             <p class='wind_speed'>wind speed, mph:${wind_speed}</p>
-            <p class='wind_direction'>${wind_direction}</p>
+            <p class='wind_direction'>Wind direction:${wind_direction}</p>
         </div>
     </div>
     `
